@@ -1,79 +1,50 @@
-#include<stdio.h>
+#include <stdio.h>
 #define INF 999
 #define MAX 100
-
-int p[MAX],c[MAX][MAX],t[MAX][2];
-
-int find(int v)
-{
-    while(p[v])
-        v=p[v];
+int p[MAX], c[MAX][MAX];
+int find(int v) {
+    while (p[v] != 0)
+        v = p[v];
     return v;
 }
-
-void union1(int i,int j)
-{
-    p[j]=i;
+void union1(int u, int v) {
+    p[v] = u;
 }
-
-void Kruskal(int n)
-{
-    int i,j,k,u,v,min,res1,res2,sum=0;
-
-    for(k=1;k<n;k++)
-    {
-        min=INF;
-
-        for(i=1;i<=n;i++)
-        {
-            for(j=1;j<=n;j++)
-            {
-                if(i==j) continue;
-
-                if(c[i][j]<min)
-                {
-                    u=find(i);
-                    v=find(j);
-
-                    if(u!=v)
-                    {
-                        res1=i;
-                        res2=j;
-                        min=c[i][j];
+void kruskal(int n) {
+    int i, j, k;
+    int u, v;
+    int min, cost = 0;
+    printf("Edges in MST:\n");
+    for (k = 1; k < n; k++) {
+        min = INF;
+        for (i = 1; i <= n; i++) {
+            for (j = i + 1; j <= n; j++) {   
+                if (c[i][j] != 0 && c[i][j] < min) {
+                    u = find(i);
+                    v = find(j);
+                    if (u != v) {
+                        min = c[i][j];
+                        int a = i, b = j;
+                        union1(u, v);
+                        printf("%d -> %d\n", a, b);
+                        cost += min;
                     }
                 }
             }
         }
-
-        union1(res1,find(res2));
-        t[k][1]=res1;
-        t[k][2]=res2;
-        sum+=min;
     }
-
-    printf("Cost of spanning tree=%d\n",sum);
-    printf("Edges of spanning tree:\n");
-
-    for(i=1;i<n;i++)
-        printf("%d -> %d\n",t[i][1],t[i][2]);
+    printf("Minimum Cost = %d\n", cost);
 }
-
-int main()
-{
-    int i,j,n;
-
-    printf("Enter n value: ");
-    scanf("%d",&n);
-
-    for(i=1;i<=n;i++)
-        p[i]=0;
-
-    printf("Enter graph data:\n");
-
-    for(i=1;i<=n;i++)
-        for(j=1;j<=n;j++)
-            scanf("%d",&c[i][j]);
-
-    Kruskal(n);
+int main() {
+    int n, i, j;
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++)
+        p[i] = 0;
+    printf("Enter cost matrix:\n");
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= n; j++)
+            scanf("%d", &c[i][j]);
+    kruskal(n);
     return 0;
 }
