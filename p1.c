@@ -24,7 +24,7 @@ void Kruskal(int n)
     {
         min=INF;
 
-        for(i=1;i<n-1;i++)
+        for(i=1;i<=n;i++)
         {
             for(j=1;j<=n;j++)
             {
