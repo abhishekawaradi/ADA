@@ -11,9 +11,7 @@ void union1(int u, int v) {
     p[v] = u;
 }
 void kruskal(int n) {
-    int i, j, k;
-    int u, v;
-    int min, cost = 0;
+    int i, j, k,u, v,min, cost = 0;
     printf("Edges in MST:\n");
     for (k = 1; k < n; k++) {
         min = INF;
