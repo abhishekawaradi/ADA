@@ -1,8 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 int x[10],count=0;
-
 int place(int k,int i)
 {
     int j;
@@ -13,22 +11,18 @@ int place(int k,int i)
     }
     return 1;
 }
-
 void nqueen(int k,int n)
 {
     int i,j;
-
     for(i=1;i<=n;i++)
     {
         if(place(k,i))
         {
             x[k]=i;
-
             if(k==n)
             {
                 count++;
                 printf("\nSolution %d:\n",count);
-
                 for(i=1;i<=n;i++)
                 {
                     for(j=1;j<=n;j++)
@@ -46,15 +40,11 @@ void nqueen(int k,int n)
         }
     }
 }
-
 int main()
 {
     int n;
-
     printf("Enter the no. of queens:");
     scanf("%d",&n);
-
     nqueen(1,n);
-
     return 0;
 }
