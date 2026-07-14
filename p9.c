@@ -24,35 +24,22 @@ void selection(int a[], int n)
 }
 int main()
 {
-    int a[100000], size[20];
-    int t,n,i;
+    int a[100000],n;
     struct timeval tv;
     double start,end;
     srand(time(NULL));
-    printf("Enter number of test cases: ");
-    scanf("%d",&t);
-    for(i=0;i<t;i++)
+    do
     {
-        do
-        {
-            printf("Enter number of elements %d (>5000): ",i+1);
-            scanf("%d",&size[i]);
-            if(size[i]<=5000)
-                printf("Please enter n greater than 5000.\n");
-        }while(size[i]<=5000);
-    }
-    printf(" No. of Elements\tTime Taken(sec)\n");
-    for(i=0;i<t;i++)
-    {
-        n=size[i];
-        randominput(a,n);
-        gettimeofday(&tv,NULL);
-        start=tv.tv_sec + tv.tv_usec/1000000.0;
-        selection(a,n);
-        gettimeofday(&tv,NULL);
-        end=tv.tv_sec + tv.tv_usec/1000000.0;
-        printf("%10d\t\t%.6lf\n",n,end-start);
-    }
+        printf("Enter number of elements (>5000): ");
+        scanf("%d",&n);
+    }while(n<=5000);
+    randominput(a,n);
+    gettimeofday(&tv,NULL);
+    start=tv.tv_sec+tv.tv_usec/1000000.0;
+    selection(a,n);
+    gettimeofday(&tv,NULL);
+    end=tv.tv_sec+tv.tv_usec/1000000.0;
+    printf("Time Taken = %.6lf seconds\n",end-start);
     return 0;
 }
 
