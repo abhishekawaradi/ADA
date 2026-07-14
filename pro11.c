@@ -2,15 +2,15 @@
 #include<stdlib.h>
 #include<sys/time.h>
 #include<time.h>
-void randominput(int a[],int n)
+void randominput(int a[], int n)
 {
     int i;
     for(i=0;i<n;i++)
         a[i]=rand()%10000;
 }
-void merge(int a[],int low,int mid,int high)
+void merge(int a[], int low, int mid, int high)
 {
-    int i=low,j=mid+1,k=low,b[100000];
+    int b[100000],i=low,j=mid+1,k=low;
     while(i<=mid && j<=high)
     {
         if(a[i]<a[j])
@@ -25,7 +25,7 @@ void merge(int a[],int low,int mid,int high)
     for(i=low;i<=high;i++)
         a[i]=b[i];
 }
-void mergesort(int a[],int low,int high)
+void mergesort(int a[], int low, int high)
 {
     int mid;
     if(low<high)
@@ -38,35 +38,22 @@ void mergesort(int a[],int low,int high)
 }
 int main()
 {
-    int a[100000],size[20];
-    int t,n,i;
+    int a[100000],n;
     struct timeval tv;
     double start,end;
     srand(time(NULL));
-    printf("Enter number of test cases: ");
-    scanf("%d",&t);
-    for(i=0;i<t;i++)
+    do
     {
-        do
-        {
-            printf("Enter number of elements %d (>5000): ",i+1);
-            scanf("%d",&size[i]);
-            if(size[i]<=5000)
-                printf("Please enter n greater than 5000.\n");
-        }while(size[i]<=5000);
-    }
-    printf(" No. of Elements\tTime Taken(sec)\n");
-    for(i=0;i<t;i++)
-    {
-        n=size[i];
-        randominput(a,n);
-        gettimeofday(&tv,NULL);
-        start=tv.tv_sec+tv.tv_usec/1000000.0;
-        mergesort(a,0,n-1);
-        gettimeofday(&tv,NULL);
-        end=tv.tv_sec+tv.tv_usec/1000000.0;
-        printf("%10d\t\t%.6lf\n",n,end-start);
-    }
+        printf("Enter number of elements (>5000): ");
+        scanf("%d",&n);
+    }while(n<=5000);
+    randominput(a,n);
+    gettimeofday(&tv,NULL);
+    start=tv.tv_sec+tv.tv_usec/1000000.0;
+    mergesort(a,0,n-1);
+    gettimeofday(&tv,NULL);
+    end=tv.tv_sec+tv.tv_usec/1000000.0;
+    printf("Time Taken = %.6lf seconds\n",end-start);
     return 0;
 }
 
